@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+  <title>Cosas por hacer</title>
+</head>
+
+<body>
+  <div id="app2">
+    <div class="app-container">
+      <h1 class="header-tolist">Cosas por hacer</h1>
+      <div class="row">
+      <input type="text" v-model="todo" class="agregar-input" >
+      <input type="submit" class="btn-agregar" value="+" @click="storeTodo">
+      </div>
+      <div class="row">
+      <ul class="lista-tareas">
+        <li v-for="(todo, index) in todos" class="list-item">
+          <input type="checkbox" class="item-check"> {{ todo }}
+          <button @click="deletetodo(index)" class="btn-delete">x</button>
+        </li>
+      </ul>
+    </v-div>
+
+    </div>
+
+
+    <script type="module">
+      import Vue from 'https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.esm.browser.js'
+
+
+      var app2 = new Vue({
+        el: '#app2',
+        data: {
+          todo: '',
+          todos: ['jugan play', 'ir al super']
+        },
+        
+ 
+        methods: {
+          getinfo(){
+            this.axios.get('https://todo-lizza.fly.dev/api/collections/todo/records').then((result) => {
+            this.todos= result.data; 
+          })
+  
+          },
+          
+          storeTodo() {
+            this.todos.push(this.todo)
+          },
+          deletetodo(index) {
+            this.todos.splice(index, 1)
+          }
+
+        
+        }
+      })
+    </script>
+</body>
+
+</html>
